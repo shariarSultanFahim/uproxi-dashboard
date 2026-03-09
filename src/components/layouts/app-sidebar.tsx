@@ -1,4 +1,10 @@
 "use client";
+
+import * as React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
   BookOpen,
   ClipboardClock,
@@ -7,10 +13,8 @@ import {
   LogOut,
   UserRoundPen
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import * as React from "react";
+
+import { siteConfig } from "@/config/site";
 
 import {
   Sidebar,
@@ -27,16 +31,15 @@ import {
 } from "@/components/ui/sidebar";
 
 import { Button } from "../ui";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const data = {
   info: {
-    title: "Rise & Impact",
-    subtitle: "Instructor Portal"
+    title: "",
+    subtitle: ""
   },
   navMain: [
     {
-      title: "",
+      title: "Main",
       items: [
         {
           title: "Overview",
@@ -76,30 +79,25 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-   const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
-    <Sidebar variant="inset" collapsible="icon" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarHeader className="flex items-center justify-center">
+        <Link href="/">
+          <Image src={siteConfig.favicon} alt="Logo" width={80} height={80} />
+        </Link>
+        {/* <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Image src="/logo.png" alt="Logo" width={32} height={32} />
-                </div>
-                <div className="grid flex-1 text-sm leading-tight">
-                  <span className="truncate text-sm font-bold">{data.info.title}</span>
-                  <span className="truncate text-xs font-semibold text-sidebar-foreground/60">
-                    {data.info.subtitle}
-                  </span>
-                </div>
+                <Image src={siteConfig.favicon} alt="Logo" width={100} height={100} />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        </SidebarMenu>
+        </SidebarMenu> */}
       </SidebarHeader>
-       <SidebarContent>
+      <SidebarContent>
         {data.navMain.map((group) => (
           <SidebarGroup key={group.title}>
             <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
@@ -107,16 +105,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton 
-                      asChild 
+                    <SidebarMenuButton
+                      asChild
                       isActive={pathname === item.url}
-                      className="data-[active=true]:bg-white/25 data-[active=true]:shadow-md data-[active=true]:backdrop-blur-sm data-[active=true]:text-primary-foreground"
+                      className="rounded-2xl data-[active=true]:text-white data-[active=true]:shadow-xl data-[active=true]:backdrop-blur-sm"
                     >
-                      <Link href={item.url}>
+                      <Link href={item.url} className="py-6">
                         <item.icon />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
+                    {/* <SidebarMenuBadge>
+                      <LeafyGreen className="size-3" />
+                    </SidebarMenuBadge> */}
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -128,7 +129,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem className="space-y-5">
-            <div className="hidden flex-col gap-4 group-data-[collapsible=icon]:flex">
+            {/* <div className="hidden flex-col gap-4 group-data-[collapsible=icon]:flex">
               <Avatar size="lg" className="h-8 w-8">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
@@ -145,11 +146,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <h3 className="text-sm text-gray-500">john@riseimpact.com</h3>
                 </div>
               </div>
-            </div>
+            </div> */}
             <SidebarMenuButton asChild className="group-data-[collapsible=icon]:w-full">
-              <Button variant="outline" className="w-full bg-transparent border-secondary group-data-[collapsible=icon]:p-0">
+              <Button
+                variant="outline"
+                className="w-full border-none bg-muted text-red-500 group-data-[collapsible=icon]:p-0"
+              >
+                <span className="group-data-[collapsible=icon]:hidden">Logout</span>
                 <LogOut className="size-4 group-data-[collapsible=icon]:h-5 group-data-[collapsible=icon]:w-5" />
-                <span className="group-data-[collapsible=icon]:hidden">Sign Out</span>
               </Button>
             </SidebarMenuButton>
           </SidebarMenuItem>

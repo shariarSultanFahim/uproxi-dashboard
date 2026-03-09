@@ -9,6 +9,7 @@ export interface SiteConfig {
   description: string;
   url: string;
   author: string;
+  favicon: string;
   locale: string;
   themeColor: string;
   keywords: string[];

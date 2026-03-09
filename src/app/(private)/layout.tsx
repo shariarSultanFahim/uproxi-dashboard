@@ -1,20 +1,20 @@
 import { AppSidebar } from "@/components/layouts/app-sidebar";
 import { Separator } from "@/components/ui";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { DynamicBreadcrumb } from "@/components/ui/dynamic-breadcrumb";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function PrivateLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 px-4">
+      <section>
+        <header className="flex items-center gap-2 p-6">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+          <DynamicBreadcrumb />
         </header>
-        <div className="flex flex-1 flex-col gap-4 overflow-y-hidden rounded-tl-xl bg-background p-4">
-          {children}
-        </div>
-      </SidebarInset>
+        <section className="p-6">{children}</section>
+      </section>
     </SidebarProvider>
   );
 }

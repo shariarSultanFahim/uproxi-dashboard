@@ -2,12 +2,13 @@ import type { SiteConfig } from "@/types/site-config";
 import { env } from "@/env";
 
 export const siteConfig: SiteConfig = {
-  name: "Rise & Impact Admin Panel",
-  description: "Production-ready Next.js 16+ starter built with Tailwind CSS 4 and TypeScript.",
+  name: "Uroxi Admin Panel",
+  description: "A modern admin panel built with Next.js, TypeScript, and Tailwind CSS.",
   url: env.NEXT_PUBLIC_SITE_URL,
   author: "",
   locale: "en",
-  themeColor: "#576045",
+  favicon: "/logo.svg",
+  themeColor: "#33B4EA",
   keywords: ["nextjs", "typescript", "tailwindcss", "boilerplate", "starter"],
   social: {
     twitter: "",
