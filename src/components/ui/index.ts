@@ -14,10 +14,10 @@ export * from "./popover";
 export * from "./select";
 export * from "./separator";
 export * from "./sheet";
+export * from "./sidebar";
 export * from "./slider";
 export * from "./sonner";
 export * from "./switch";
 export * from "./table";
 export * from "./textarea";
 export * from "./tooltip";
-

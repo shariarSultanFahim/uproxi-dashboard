@@ -1,3 +1,3 @@
-export default function OverviewPage() {
+export default function PrivateIndexPage() {
   return <section>Overview Content</section>;
 }

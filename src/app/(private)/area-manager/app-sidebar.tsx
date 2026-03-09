@@ -6,11 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
-  BookOpen,
-  ClipboardClock,
   HeartHandshake,
   LayoutDashboard,
   LogOut,
+  ShoppingCart,
+  Store,
+  Truck,
   UserRoundPen
 } from "lucide-react";
 
@@ -30,7 +31,7 @@ import {
   SidebarRail
 } from "@/components/ui/sidebar";
 
-import { Button } from "../ui";
+import { Button } from "../../../components/ui";
 
 const data = {
   info: {
@@ -39,22 +40,27 @@ const data = {
   },
   navMain: [
     {
-      title: "Main",
+      title: "MAIN",
       items: [
         {
-          title: "Overview",
-          url: "/overview",
+          title: "Dashboard",
+          url: "/area-manager",
           icon: LayoutDashboard
         },
         {
-          title: "User Management",
-          url: "/user-management",
-          icon: ClipboardClock
+          title: "Stores",
+          url: "/area-manager/stores",
+          icon: Store
         },
         {
-          title: "Course",
-          url: "/courses",
-          icon: BookOpen
+          title: "Orders",
+          url: "/area-manager/orders",
+          icon: ShoppingCart
+        },
+        {
+          title: "Suppliers",
+          url: "/area-manager/suppliers",
+          icon: Truck
         }
       ]
     }
@@ -78,7 +84,7 @@ const data = {
   ]
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AreaManagerAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
 
   return (
