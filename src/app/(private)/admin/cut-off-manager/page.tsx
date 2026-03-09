@@ -1,3 +1,3 @@
 export default function CutOffManagerPage() {
-  return <section>CutOffManagerPage Content</section>;
+  return <section >CutOffManagerPage Content</section>;
 }

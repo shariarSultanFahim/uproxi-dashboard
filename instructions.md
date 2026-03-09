@@ -10,6 +10,18 @@ description: "Comprehensive instructions for working with the Uproxi Dashboard c
 This is a Next.js App Router-based uproxi dashboard with both admin and operator dashboards. The codebase uses TypeScript, React, TailwindCSS, shadcn/ui, and TanStack Query for state management and data fetching.
 
 ---
+## Development Mode
+### Currently This is in frontend development phase so no api is here yet so follow this for api and json data
+
+```
+- Make json data in `src/app/[domain]/components/data/`
+- Make forms in `src/app/[domain]/components/forms/`
+- Make Charts in `src/app/[domain]/components/charts/`
+- Make Tables in `src/app/[domain]/components/tables/`
+- Use the json data with the Tanstack api. 
+- In furute this json will be removed and accual api will be added
+
+```
 
 ## Folder Structure & Organization
 
