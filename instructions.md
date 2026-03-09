@@ -16,11 +16,16 @@ This is a Next.js App Router-based uproxi dashboard with both admin and operator
 ```
 - Make json data in `src/app/[route]/components/data/`
 - Make forms in `src/app/[route]/components/forms/`
+- Make schemas in `src/app/[route]/components/schemas/`
 - Make Charts in `src/app/[route]/components/charts/`
 - Make Tables in `src/app/[route]/components/tables/`
 - Use the json data with the Tanstack api. 
-- In furute this json will be removed and accual api will be added
+- In future this json will be removed and actual api will be added
 
+### Form & Modal Guidelines
+- **Strictly use `react-hook-form` with `zod`** for all form handling and validation. 
+- **NEVER use local `useState`** for tracking form fields.
+- **Decouple Forms from Modals:** The physical Modal or Dialog component should only act as a shell. It should import the standalone form component from `components/forms/` and inject functions (like `onSuccess`/`onCancel`) rather than hosting the form state directly inside the modal file.
 ```
 
 ## Folder Structure & Organization
