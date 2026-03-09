@@ -1,3 +1,4 @@
+import Link from "next/link"
 import {
     User as UserIcon,
     MapPin,
@@ -130,9 +131,11 @@ export function UserTable({ users, isPendingTab, isLoading }: UserTableProps) {
                                 <TableCell className="text-right px-6 py-4">
                                     {isPendingTab ? (
                                         <div className="flex items-center justify-end gap-2">
-                                            <Button variant="secondary" className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs h-8 px-4">
-                                                Review
-                                            </Button>
+                                            <Link href={`/admin/user-management/${user.id}`}>
+                                                <Button variant="secondary" className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-xs h-8 px-4">
+                                                    View Details
+                                                </Button>
+                                            </Link>
                                             <Button variant="default" className="bg-[#39B5F9] hover:bg-[#22A0E6] text-white font-semibold rounded-xl text-xs h-8 px-4 shadow-sm">
                                                 Approve
                                             </Button>
@@ -145,9 +148,11 @@ export function UserTable({ users, isPendingTab, isLoading }: UserTableProps) {
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end" className="w-48 rounded-xl shadow-lg border-slate-100 p-2">
-                                                <DropdownMenuItem className="rounded-lg cursor-pointer py-2.5 font-medium text-slate-700">
-                                                    <Store className="mr-2 h-4 w-4" />
-                                                    <span>View Profile</span>
+                                                <DropdownMenuItem asChild className="rounded-lg cursor-pointer py-2.5 font-medium text-slate-700">
+                                                    <Link href={`/admin/user-management/${user.id}`}>
+                                                        <Store className="mr-2 h-4 w-4" />
+                                                        <span>View Profile</span>
+                                                    </Link>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem className="rounded-lg cursor-pointer py-2.5 font-medium text-orange-600 focus:text-orange-600 focus:bg-orange-50">
                                                     <ShieldAlert className="mr-2 h-4 w-4" />
