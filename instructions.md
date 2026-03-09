@@ -11,13 +11,13 @@ This is a Next.js App Router-based uproxi dashboard with both admin and operator
 
 ---
 ## Development Mode
-### Currently This is in frontend development phase so no api is here yet so follow this for api and json data
+### Currently This is in frontend development phase so the rules in this section is overpowered than the others after this section
 
 ```
-- Make json data in `src/app/[domain]/components/data/`
-- Make forms in `src/app/[domain]/components/forms/`
-- Make Charts in `src/app/[domain]/components/charts/`
-- Make Tables in `src/app/[domain]/components/tables/`
+- Make json data in `src/app/[route]/components/data/`
+- Make forms in `src/app/[route]/components/forms/`
+- Make Charts in `src/app/[route]/components/charts/`
+- Make Tables in `src/app/[route]/components/tables/`
 - Use the json data with the Tanstack api. 
 - In furute this json will be removed and accual api will be added
 
@@ -347,10 +347,22 @@ import { analytics } from "./utils";
 Use soft and pastel tones via Tailwind's default palette with custom theme variables.
 
 ```typescript
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  {/* Stacks on mobile, 2 cols on tablet, 3 cols on desktop */}
+// ✅ Good: Use appropriate breakpoints for complex components like charts
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+  {/* Stacks on mobile/tablet, 3 cols on desktop */}
+  <div className="lg:col-span-2">{/* Large chart */}</div>
+  <div>{/* Small chart */}</div>
+</div>
+
+// ✅ Good: Stat cards grid progression
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+  {/* Grows smoothly across breakpoints */}
 </div>
 ```
+
+**Key Layout Rules:**
+- Do **not** use `md:grid` for complex components like charts or tables, as they will overflow or squish when the sidebar is open on tablet screens. Use `lg` breakpoints instead.
+- For the main container inside `SidebarInset`, ensure it has `min-w-0` applied locally or via parents. This allows flex containers to shrink their children (especially charts) rather than pushing them outside the viewport boundary when the sidebar toggles.
 
 ---
 

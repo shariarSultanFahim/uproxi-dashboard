@@ -14,7 +14,7 @@ export function FinanceTab() {
     return (
         <div className="flex flex-col gap-6">
             {/* Metrics Row */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <Card className="bg-emerald-50 border-none shadow-none">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <div className="p-2 bg-emerald-100 rounded-md bg-white border border-emerald-200">
@@ -69,8 +69,8 @@ export function FinanceTab() {
             </div>
 
             {/* Analytics & Distribution Row */}
-            <div className="grid gap-4 md:grid-cols-3">
-                <Card className="md:col-span-2">
+            <div className="grid gap-4 lg:grid-cols-3">
+                <Card className="lg:col-span-2">
                     <CardHeader className="flex flex-row items-center justify-between pb-8">
                         <div>
                             <CardTitle>Sales Analytics</CardTitle>

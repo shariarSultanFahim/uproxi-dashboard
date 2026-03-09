@@ -13,7 +13,9 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
           <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
           <DynamicBreadcrumb />
         </header>
-        <div className="p-6 gap-4 bg-background flex flex-1 overflow-y-auto">{children}</div>
+        <div className="p-6 gap-4 bg-background flex flex-col flex-1 min-w-0  overflow-x-hidden">
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

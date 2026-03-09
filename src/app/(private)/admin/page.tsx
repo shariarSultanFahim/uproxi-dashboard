@@ -12,7 +12,7 @@ import { FinanceTab } from "./components/finance-tab"
 
 export default function AdminDashboardPage() {
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full min-w-0">
       <PageHeader
         title="Performance Analytics"
         description="Comprehensive metrics for stores, suppliers, finance, and operations."

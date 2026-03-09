@@ -14,7 +14,7 @@ export function StoreEngagementTab() {
     return (
         <div className="flex flex-col gap-6">
             {/* Metrics Row */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <Card className="bg-green-100 border-none shadow-none">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <div className="p-2 bg-green-200 rounded-md">
@@ -66,8 +66,8 @@ export function StoreEngagementTab() {
             </div>
 
             {/* Charts Row */}
-            <div className="grid gap-4 md:grid-cols-3">
-                <Card className="md:col-span-2">
+            <div className="grid gap-4 lg:grid-cols-3">
+                <Card className="lg:col-span-2">
                     <CardHeader className="flex flex-row items-center justify-between">
                         <div>
                             <CardTitle>Order Frequency</CardTitle>
