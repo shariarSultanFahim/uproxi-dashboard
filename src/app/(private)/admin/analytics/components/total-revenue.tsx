@@ -5,6 +5,7 @@ import { Lock, Unlock, DollarSign, CreditCard } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SparkleButton } from "@/components/ui/sparkle-button";
 
 export function TotalRevenue() {
     const [isPaywallActive, setIsPaywallActive] = useState(true);
@@ -50,7 +51,7 @@ export function TotalRevenue() {
                     </div>
 
                     <div className="w-full flex flex-col items-center">
-                        <Button
+                        <SparkleButton
                             onClick={() => setIsPaywallActive(!isPaywallActive)}
                             className={`w-full max-w-sm h-14 rounded-xl font-bold text-lg shadow-md transition-all ${isPaywallActive
                                 ? "bg-[#3dbcf9] hover:bg-[#3dbcf9]/90 text-white shadow-[#3dbcf9]/20"
@@ -58,7 +59,7 @@ export function TotalRevenue() {
                                 }`}
                         >
                             {isPaywallActive ? "Disable Paywall (Make Free)" : "Enable Paywall"}
-                        </Button>
+                        </SparkleButton>
 
                         <div className="flex items-center text-[#8e98a8] text-xs font-medium mt-6">
                             <svg className="w-4 h-4 mr-1.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
