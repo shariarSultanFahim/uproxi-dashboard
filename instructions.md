@@ -333,13 +333,16 @@ import { analytics } from "./utils";
 
 ## Styling Guidelines
 
-### TailwindCSS Only
+### ShadCN first then Tailwind CSS
 
 ```typescript
+// ✅ Use ShadCN components
+<Button className="rounded-xl h-11">Click me</Button>
+
 // ✅ Use Tailwind classes
 <div className="flex items-center justify-between p-4 bg-background rounded-lg">
   <span className="text-sm font-medium text-muted-foreground">Orders</span>
-</div>
+</div>  
 
 // ❌ No inline styles
 <div style={{ display: "flex", padding: "16px" }}>
