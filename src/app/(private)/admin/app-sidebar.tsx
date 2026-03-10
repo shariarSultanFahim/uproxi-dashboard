@@ -154,17 +154,8 @@ export function AdminAppSidebar({ ...props }: React.ComponentProps<typeof Sideba
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="flex items-center justify-center">
         <Link href="/">
-          <Image src={siteConfig.favicon} alt="Logo" width={80} height={80} />
+          <Image src={siteConfig.favicon} alt="Logo" width={100} height={100} />
         </Link>
-        {/* <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <Link href="/">
-                <Image src={siteConfig.favicon} alt="Logo" width={100} height={100} />
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu> */}
       </SidebarHeader>
       <SidebarContent>
         {data.navMain.map((group) => (
@@ -176,7 +167,7 @@ export function AdminAppSidebar({ ...props }: React.ComponentProps<typeof Sideba
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       asChild
-                      isActive={pathname === item.url}
+                      isActive={pathname === item.url || (item.url !== "/admin" && pathname.startsWith(`${item.url}/`))}
                       className="rounded-2xl data-[active=true]:text-white data-[active=true]:shadow-xl data-[active=true]:backdrop-blur-sm"
                     >
                       <Link href={item.url} className="py-6">
