@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, MapPin, Store } from "lucide-react"
+import { MapPin, Store, Trash2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DeleteConfirmationModal } from "../../components/delete-confirmation-modal"
+import { toast } from "sonner"
 
 const storesData = [
   { id: "S1004", name: "Store Phoenix 1", location: "Phoenix, Central", status: "Active", monthlyOrders: 70, revenue: 12479.17, lastOrder: "2 hours ago" },
@@ -27,6 +29,11 @@ const storesData = [
 ]
 
 export function AreaManagerStoresTable() {
+  const handleDelete = (storeName: string) => {
+    console.log(`Deleting store: ${storeName}`)
+    toast.success(`${storeName} deleted successfully!`)
+  }
+
   return (
     <Card className="border shadow-sm">
       <CardHeader className="border-b pb-4">
@@ -40,31 +47,31 @@ export function AreaManagerStoresTable() {
           <Table className="min-w-[1000px] w-full">
             <TableHeader>
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">STORE NAME</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">LOCATION</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">STATUS</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">MONTHLY ORDERS</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">REVENUE</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">LAST ORDER</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12 text-right">ACTIONS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">LOCATION</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">STATUS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">MONTHLY ORDERS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">REVENUE</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">LAST ORDER</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">STORE NAME</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12 text-right">ACTIONS</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {storesData.map((store) => (
                 <TableRow key={store.id} className="border-b hover:bg-slate-50/50">
-                  <TableCell className="py-4">
+                  <TableCell className="px-4 py-2">
                     <div className="flex flex-col space-y-1">
                       <span className="font-medium text-sm text-foreground">{store.name}</span>
                       <span className="text-xs text-muted-foreground">ID: {store.id}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="py-4">
+                  <TableCell className="px-4 py-2">
                     <div className="flex items-center text-sm text-muted-foreground">
                       <MapPin className="h-3.5 w-3.5 mr-1" />
                       {store.location}
                     </div>
                   </TableCell>
-                  <TableCell className="py-4">
+                  <TableCell className="px-4 py-2">
                     <Badge
                       variant="secondary"
                       className={`
@@ -76,22 +83,28 @@ export function AreaManagerStoresTable() {
                       {store.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-muted-foreground">{store.monthlyOrders}</TableCell>
-                  <TableCell className="py-4 font-medium text-sm text-foreground">
+                  <TableCell className="px-4 py-2 text-sm text-muted-foreground">{store.monthlyOrders}</TableCell>
+                  <TableCell className="px-4 py-2 font-medium text-sm text-foreground">
                     ${store.revenue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-muted-foreground">{store.lastOrder}</TableCell>
-                  <TableCell className="py-4 text-right">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
+                  <TableCell className="px-4 py-2 text-sm text-muted-foreground">{store.lastOrder}</TableCell>
+                  <TableCell className="px-4 py-2 text-right">
+                    <DeleteConfirmationModal
+                      itemName={store.name}
+                      itemType="store"
+                      onConfirm={() => handleDelete(store.name)}
+                    >
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-rose-500 hover:text-rose-600 hover:bg-rose-50">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </DeleteConfirmationModal>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
-        
+
         {/* Pagination Footer */}
         <div className="flex items-center justify-between px-6 py-4 border-t">
           <div className="text-sm text-muted-foreground">

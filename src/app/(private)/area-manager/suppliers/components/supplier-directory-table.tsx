@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, Truck } from "lucide-react"
+import { Truck, Trash2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DeleteConfirmationModal } from "../../components/delete-confirmation-modal"
+import { toast } from "sonner"
 
 const suppliersData = [
   { id: "1", name: "Supplier A", category: "Produce", status: "Active", activeOrders: 22, onTime: "91.9%" },
@@ -55,6 +57,11 @@ export function AreaManagerSupplierDirectoryTable() {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
   }
 
+  const handleDelete = (supplierName: string) => {
+    console.log(`Deleting supplier: ${supplierName}`)
+    toast.success(`${supplierName} deleted successfully!`)
+  }
+
   return (
     <Card className="border shadow-sm">
       <CardHeader className="border-b pb-4">
@@ -68,24 +75,24 @@ export function AreaManagerSupplierDirectoryTable() {
           <Table className="min-w-[600px] w-full">
             <TableHeader>
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">SUPPLIER NAME</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">CATEGORY</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">STATUS</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">ACTIVE ORDERS</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">ON-TIME %</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12 text-right">ACTIONS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">SUPPLIER NAME</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">CATEGORY</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">STATUS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">ACTIVE ORDERS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">ON-TIME %</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12 text-right">ACTIONS</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {currentRows.map((supplier) => (
                 <TableRow key={supplier.id} className="border-b hover:bg-slate-50/50">
-                  <TableCell className="py-4 font-medium text-sm text-foreground">
+                  <TableCell className="px-4 py-2 font-medium text-sm text-foreground">
                     {supplier.name}
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-muted-foreground">
+                  <TableCell className="px-4 py-2 text-sm text-muted-foreground">
                     {supplier.category}
                   </TableCell>
-                  <TableCell className="py-4">
+                  <TableCell className="px-4 py-2">
                     <Badge
                       variant="secondary"
                       className={`
@@ -96,16 +103,22 @@ export function AreaManagerSupplierDirectoryTable() {
                       {supplier.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-foreground">
+                  <TableCell className="px-4 py-2 text-sm text-foreground">
                     {supplier.activeOrders}
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-foreground">
+                  <TableCell className="px-4 py-2 text-sm text-foreground">
                     {supplier.onTime}
                   </TableCell>
-                  <TableCell className="py-4 text-right">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
+                  <TableCell className="px-4 py-2 text-right">
+                    <DeleteConfirmationModal
+                      itemName={supplier.name}
+                      itemType="supplier"
+                      onConfirm={() => handleDelete(supplier.name)}
+                    >
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-rose-500 hover:text-rose-600 hover:bg-rose-50">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </DeleteConfirmationModal>
                   </TableCell>
                 </TableRow>
               ))}
@@ -119,19 +132,19 @@ export function AreaManagerSupplierDirectoryTable() {
             Showing {indexOfFirstRow + 1} to {Math.min(indexOfLastRow, suppliersData.length)} of {suppliersData.length} entries
           </div>
           <div className="flex items-center gap-2">
-            <button 
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-slate-200 bg-transparent shadow-sm hover:bg-slate-100 h-8 px-3 text-muted-foreground"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
+            <button
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-slate-200 bg-transparent shadow-sm hover:bg-slate-100 h-8 px-3 text-muted-foreground"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
             >
-                Previous
+              Previous
             </button>
-            <button 
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-slate-200 bg-transparent shadow-sm hover:bg-slate-100 h-8 px-3 text-muted-foreground"
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
+            <button
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-slate-200 bg-transparent shadow-sm hover:bg-slate-100 h-8 px-3 text-muted-foreground"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
             >
-                Next
+              Next
             </button>
           </div>
         </div>

@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, ShoppingCart, Download, Printer, Eye } from "lucide-react"
+import { ShoppingCart, Download, Printer, Eye } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { OrderDetailsModal } from "./order-details-modal"
 
 const ordersData = [
   { id: "#ORD-7829", date: "2/2/2026", time: "2:40", customer: "Customer 1", store: "Store New York 1", amount: 93.12, status: "Processing" },
@@ -35,14 +36,14 @@ export function AreaManagerOrdersTable() {
           All Orders (50)
         </CardTitle>
         <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="h-9 gap-2 text-muted-foreground border-slate-200">
-                <Download className="h-4 w-4" />
-                Export CSV
-            </Button>
-            <Button variant="outline" size="sm" className="h-9 gap-2 text-muted-foreground border-slate-200">
-                <Printer className="h-4 w-4" />
-                Print
-            </Button>
+          <Button variant="outline" size="sm" className="h-9 gap-2 text-muted-foreground border-slate-200">
+            <Download className="h-4 w-4" />
+            Export CSV
+          </Button>
+          <Button variant="outline" size="sm" className="h-9 gap-2 text-muted-foreground border-slate-200">
+            <Printer className="h-4 w-4" />
+            Print
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="p-0">
@@ -50,37 +51,37 @@ export function AreaManagerOrdersTable() {
           <Table className="min-w-[1000px] w-full">
             <TableHeader>
               <TableRow className="hover:bg-transparent border-none">
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">ORDER ID</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">DATE & TIME</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">CUSTOMER</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">STORE</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">AMOUNT</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12">STATUS</TableHead>
-                <TableHead className="font-semibold text-xs text-muted-foreground h-12 text-right">ACTIONS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">ORDER ID</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">DATE & TIME</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">CUSTOMER</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">STORE</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">AMOUNT</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12">STATUS</TableHead>
+                <TableHead className="font-semibold text-xs px-4 text-muted-foreground h-12 text-right">ACTIONS</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {ordersData.map((order) => (
                 <TableRow key={order.id} className="border-b hover:bg-slate-50/50">
-                  <TableCell className="py-4 font-medium text-sm text-emerald-500">
+                  <TableCell className="px-4 py-2 font-medium text-sm text-emerald-500">
                     {order.id}
                   </TableCell>
-                  <TableCell className="py-4">
+                  <TableCell className="px-4 py-2">
                     <div className="flex flex-col space-y-1">
                       <span className="font-medium text-sm text-foreground">{order.date}</span>
                       <span className="text-xs text-muted-foreground">{order.time}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-muted-foreground">
+                  <TableCell className="py-x px-4 text-sm text-muted-foreground">
                     {order.customer}
                   </TableCell>
-                  <TableCell className="py-4 text-sm text-muted-foreground">
+                  <TableCell className="py-x px-4 text-sm text-muted-foreground">
                     {order.store}
                   </TableCell>
-                  <TableCell className="py-4 font-medium text-sm text-foreground">
+                  <TableCell className="py-x px-4 font-medium text-sm text-foreground">
                     ${order.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </TableCell>
-                  <TableCell className="py-4">
+                  <TableCell className="py-x px-4">
                     <Badge
                       variant="secondary"
                       className={`
@@ -94,14 +95,13 @@ export function AreaManagerOrdersTable() {
                       {order.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="py-4 text-right">
+                  <TableCell className="py-x px-4 text-right">
                     <div className="flex justify-end gap-1">
+                      <OrderDetailsModal order={order}>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-                            <Eye className="h-4 w-4" />
+                          <Eye className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
+                      </OrderDetailsModal>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -109,7 +109,7 @@ export function AreaManagerOrdersTable() {
             </TableBody>
           </Table>
         </div>
-        
+
         {/* Pagination Footer */}
         <div className="flex items-center justify-between px-6 py-4 border-t">
           <div className="text-sm text-muted-foreground">
